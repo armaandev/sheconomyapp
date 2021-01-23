@@ -47,11 +47,12 @@
         <activity android:name="com.sheconomy.sheeconomy.Presentation.ui.activities.impl.ProductDetailsActivity" />
         <activity android:name="com.sheconomy.sheeconomy.Presentation.ui.activities.impl.SubCategoryActivity" />
         <activity android:name="com.sheconomy.sheeconomy.Presentation.ui.activities.impl.ProductListingActivity" />
+
         <activity
             android:name="com.sheconomy.sheeconomy.Presentation.ui.activities.impl.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
+            tools:ignore="LockedOrientationActivity"/>
         <activity android:name="com.sheconomy.sheeconomy.Presentation.ui.activities.impl.LoginActivity" />
         <activity
             android:name="com.braintreepayments.api.BraintreeBrowserSwitchActivity"

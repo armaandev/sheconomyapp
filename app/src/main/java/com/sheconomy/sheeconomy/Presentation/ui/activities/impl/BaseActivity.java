@@ -1,6 +1,7 @@
 package com.sheconomy.sheeconomy.Presentation.ui.activities.impl;
 
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -9,9 +10,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.sheconomy.sheeconomy.R;
 
+import org.w3c.dom.Text;
+
 public class BaseActivity extends AppCompatActivity {
-    protected ImageButton cart, search;
+    protected ImageButton cart,search;
     protected TextView title;
+  //  private Button search;
 
     public void initializeActionBar(){
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);

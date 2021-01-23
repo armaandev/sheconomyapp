@@ -11,6 +11,7 @@ import android.widget.RadioGroup;
 import android.widget.SearchView;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -45,6 +46,7 @@ public class ProductSearchFragment extends Fragment implements ProductSearchView
     private String url = AppConfig.BASE_URL+"products/search?key=&scope=product&page=1";
     private String key = "", scope = "product";
     private ProductSearchResponse mProductSearchResponse = null;
+
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_search, null);
@@ -152,4 +154,10 @@ public class ProductSearchFragment extends Fragment implements ProductSearchView
         progressBar.setVisibility(View.GONE);
         adapter.notifyDataSetChanged();
     }
+
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
+//    }
 }

@@ -6,6 +6,10 @@
     <string name="title_account">Account</string>
     <string name="image">Image</string>
 
+
+    <string name="open">open</string>
+    <string name="close">close</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
@@ -13,4 +17,5 @@
     <string name="fb_login_protocol_scheme">fb201826287505269</string>
 
     <string name="server_client_id">364205543335-cr273fmgdc9n2uqfkrlb6075uid84eht.apps.googleusercontent.com</string>
+    <string name="start" />
 </resources>

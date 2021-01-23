@@ -5,15 +5,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+//import android.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.google.android.material.navigation.NavigationView;
 import com.sheconomy.sheeconomy.Network.response.AppSettingsResponse;
 import com.sheconomy.sheeconomy.Presentation.ui.fragments.impl.AccountFragment;
 import com.sheconomy.sheeconomy.Presentation.ui.fragments.impl.CartFragment;
@@ -30,6 +36,8 @@ import com.sheconomy.sheeconomy.domain.interactors.impl.AppSettingsInteractorImp
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.Objects;
+
 import q.rorbin.badgeview.QBadgeView;
 
 public class MainActivity extends AppCompatActivity implements AppSettingsInteractor.CallBack {
@@ -42,8 +50,14 @@ public class MainActivity extends AppCompatActivity implements AppSettingsIntera
     final FragmentManager fm = getSupportFragmentManager();
     private Fragment active = homeFragment;
     public static BottomNavigationView navView;
-    private ImageButton cart, search;
+    private ImageButton cart,search;
+    //private Button search;
     private TextView title;
+//new drawer
+    private DrawerLayout drawerLayout;
+    private ActionBarDrawerToggle toggle;
+    private static NavigationView navigationView;
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -82,6 +96,27 @@ public class MainActivity extends AppCompatActivity implements AppSettingsIntera
 
         setContentView(R.layout.activity_main);
 
+//      Toolbar toolbar=findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
+//        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        drawerLayout=findViewById(R.id.drawerLayout);
+       navigationView=findViewById(R.id.navigation_view);
+        toggle=new ActionBarDrawerToggle(this,drawerLayout,R.string.open,R.string.close);
+       drawerLayout.addDrawerListener(toggle);
+       toggle.syncState();
+//        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_list);
+//        getSupportActionBar().setHomeButtonEnabled(true);
+//        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_HOME_AS_UP);
+//        getSupportActionBar().setIcon(android.R.color.holo_blue_dark);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+
+       navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+           @Override
+           public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+               return true;
+           }
+       });
+
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setCustomView(R.layout.custom_action_bar_layout);
@@ -112,8 +147,23 @@ public class MainActivity extends AppCompatActivity implements AppSettingsIntera
         });
 
         navView = findViewById(R.id.nav_view);
-        navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
+        //new line for test
+//        drawerLayout=findViewById(R.id.drawerLayout);
+//        navigationView=findViewById(R.id.navigation_view);
+//
+//       toggle=new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.open,R.string.close);
+//       drawerLayout.addDrawerListener(toggle);
+//       toggle.syncState();
+//       navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+//           @Override
+//           public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//               return true;
+//           }
+//       });
+    //end line for test
+
+        navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         BottomNavigationMenuView bottomNavigationMenuView =
                 (BottomNavigationMenuView) navView.getChildAt(0);
         View v = bottomNavigationMenuView.getChildAt(3); // number of menu from left
@@ -222,4 +272,6 @@ public class MainActivity extends AppCompatActivity implements AppSettingsIntera
     public void onAppSettingsLoadedError() {
 
     }
+
+
 }
