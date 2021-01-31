@@ -58,7 +58,6 @@ public class MainActivity extends AppCompatActivity implements AppSettingsIntera
     private ActionBarDrawerToggle toggle;
     private static NavigationView navigationView;
 
-
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 

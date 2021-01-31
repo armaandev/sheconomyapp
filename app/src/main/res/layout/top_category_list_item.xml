@@ -22,14 +22,13 @@
             android:padding="5dp"
             android:text="Armaan"
             android:textColor="#000000"
-
             android:textSize="16sp"
             android:textStyle="bold">
 
         </TextView>
 
         <ImageView
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="90dp"
             android:id="@+id/category_icon"
             android:layout_width="140dp"
             android:layout_height="140dp"

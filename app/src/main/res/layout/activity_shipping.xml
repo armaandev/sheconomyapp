@@ -61,7 +61,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
-        android:textColor="#fff"
+        android:textColor="@color/colorAccent"
         android:text="PROCEED TO PAYMENT"
         android:textStyle="bold" />
 

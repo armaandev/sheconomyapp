@@ -2,6 +2,7 @@ package com.sheconomy.sheeconomy.Presentation.ui.activities.impl;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
 import androidx.core.widget.NestedScrollView;
@@ -65,7 +67,11 @@ public class ProductDetailsActivity extends BaseActivity implements ProductDetai
     private ProductDetailsPresenter productDetailsPresenter;
     private CardView shop_info, image_card;
     private boolean isBuyNow = false;
+    private Button btn_shop;
+    private RelativeLayout share;
+    //  private String path;
 
+    //private TextView tvBuying;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +89,7 @@ public class ProductDetailsActivity extends BaseActivity implements ProductDetai
         product_details.setVisibility(View.INVISIBLE);
         product_buttons.setVisibility(View.INVISIBLE);
         image_card.setVisibility(View.GONE);
+        buying_option.setVisibility(View.GONE);
 
         productDetailsPresenter = new ProductDetailsPresenter(ThreadExecutor.getInstance(), MainThreadImpl.getInstance(), this);
 
@@ -98,7 +105,7 @@ public class ProductDetailsActivity extends BaseActivity implements ProductDetai
             }
         });
 
-        specification.setOnClickListener(new View.OnClickListener() {
+       specification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ProductDescriptionActivity.class);
@@ -147,6 +154,10 @@ public class ProductDetailsActivity extends BaseActivity implements ProductDetai
         });
 
 
+        if(productDetails != null && (productDetails.getChoiceOptions().size() > 0 || productDetails.getColors().size() > 0)){
+            buying_option.setVisibility(View.VISIBLE);
+
+        }
         buying_option.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -160,6 +171,13 @@ public class ProductDetailsActivity extends BaseActivity implements ProductDetai
                 processAddToCart();
             }
         });
+      share.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+              processToshare();
+          }
+      });
+
 
         buyNow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -168,6 +186,31 @@ public class ProductDetailsActivity extends BaseActivity implements ProductDetai
                 processAddToCart();
             }
         });
+    }
+
+    private void processToshare() {
+        Toast.makeText(this, "Share Has been clicked", Toast.LENGTH_SHORT).show();
+        product_name = getIntent().getStringExtra("product_name");
+        link = getIntent().getStringExtra("link");
+        String shareLink=link.toString();
+        //share = getIntent().getStringExtra("share");
+
+        //top_selling_link = getIntent().getStringExtra("top_selling");
+//        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+//        Uri screenshotUri = Uri.parse(path);
+//
+//        sharingIntent.setType("image/png");
+//        sharingIntent.putExtra(Intent.EXTRA_STREAM, screenshotUri);
+//        startActivity(Intent.createChooser(sharingIntent, "Share image using"));
+        Intent sentIntent= new Intent();
+       sentIntent.setAction(Intent.ACTION_SEND);
+       sentIntent.setType("text/plain");
+       sentIntent.putExtra(Intent.EXTRA_TEXT,product_name);
+
+      // sentIntent.putExtra(Intent.EXTRA_TEXT,share);
+        sentIntent.putExtra(Intent.EXTRA_TEXT,shareLink);
+       startActivity(sentIntent);
+
     }
 
     private void processAddToCart(){
@@ -188,7 +231,7 @@ public class ProductDetailsActivity extends BaseActivity implements ProductDetai
         }
     }
 
-    private void startBuyingOptionActivity(){
+          private void startBuyingOptionActivity(){
         if(productDetails != null && (productDetails.getChoiceOptions().size() > 0 || productDetails.getColors().size() > 0)){
             Intent intent = new Intent(getApplicationContext(), BuyingOptionsActivity.class);
             intent.putExtra("product_details", productDetails);
@@ -196,6 +239,7 @@ public class ProductDetailsActivity extends BaseActivity implements ProductDetai
         }
         else{
             CustomToast.showToast(this, "This product doesn't have any buying options.", R.color.colorWarning);
+           buying_option.setVisibility(View.GONE);
         }
     }
 
@@ -228,6 +272,10 @@ public class ProductDetailsActivity extends BaseActivity implements ProductDetai
         progressDialog = new ProgressDialog(this);
         shop_info = findViewById(R.id.shop_info);
         image_card = findViewById(R.id.image_card);
+        //new button
+        btn_shop=findViewById(R.id.btn_shop);
+        //tvBuying=findViewById(R.id.tvBuying);
+        share=findViewById(R.id.share);
     }
 
     @Override
@@ -275,6 +323,17 @@ public class ProductDetailsActivity extends BaseActivity implements ProductDetai
                     startActivity(intent);
                 }
             });
+            //new on click
+            btn_shop.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(ProductDetailsActivity.this, SellerShopActivity.class);
+                    intent.putExtra("shop_name", productDetails.getUser().getShopName());
+                    intent.putExtra("shop_link", productDetails.getUser().getShopLink());
+                    startActivity(intent);
+
+                }
+            });
         }
         else {
             AppSettingsResponse appSettingsResponse = new UserPrefs(this).getAppSettingsPreferenceObjectJson("app_settings_response");
@@ -293,6 +352,8 @@ public class ProductDetailsActivity extends BaseActivity implements ProductDetai
         progress_bar.setVisibility(View.GONE);
         product_details.setVisibility(View.VISIBLE);
         product_buttons.setVisibility(View.VISIBLE);
+        //new btn
+        buying_option.setVisibility(View.VISIBLE);
 
         new ProductDetailsPresenter(ThreadExecutor.getInstance(), MainThreadImpl.getInstance(), this).getRelatedProducts(productDetails.getLinks().getRelated());
 

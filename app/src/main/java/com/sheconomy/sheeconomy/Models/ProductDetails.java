@@ -89,6 +89,14 @@ public class ProductDetails implements Serializable {
     @Expose
     private ProductDetailsLinks links;
 
+//new share
+    @SerializedName("share")
+    @Expose
+    private String share;
+
+
+
+
     public Integer getId() {
         return id;
     }
@@ -303,5 +311,12 @@ public class ProductDetails implements Serializable {
 
     public void setLinks(ProductDetailsLinks links) {
         this.links = links;
+    }
+//new getter
+    public String getShare() {
+        return share;
+    }
+    public void setShare(String share) {
+        this.share = share;
     }
 }

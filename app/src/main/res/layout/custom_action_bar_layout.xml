@@ -8,18 +8,17 @@
     android:padding="10dp">
 
     <TableRow>
-                <ImageButton
-                    android:id="@+id/action_bar_cart"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_gravity="center_vertical"
-                    android:background="@android:color/transparent"
-                    android:scaleType="fitCenter"
-                    android:layout_marginLeft="40dp"
-                    android:src="@drawable/shopping_cart"
-                    android:tint="#818A91" />
+<!--                <ImageButton-->
+<!--                    android:id="@+id/action_bar_cart"-->
+<!--                    android:layout_width="24dp"-->
+<!--                    android:layout_height="24dp"-->
+<!--                    android:layout_alignParentTop="true"-->
+<!--                    android:layout_centerHorizontal="true"-->
+<!--                    android:layout_gravity="center_vertical"-->
+<!--                    android:background="@android:color/transparent"-->
+<!--                    android:scaleType="fitCenter"-->
+<!--                    android:src="@drawable/shopping_cart"-->
+<!--                    android:tint="#818A91" />-->
 
 
         <TextView
@@ -30,24 +29,26 @@
             android:fontFamily="sans-serif-black"
             android:gravity="center_horizontal"
             android:maxLines="1"
-            android:padding="8dp"
+            android:padding="6dp"
             android:text="@string/app_name"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#383838"
             android:textStyle="bold" />
 
 
-<!--        <ImageButton-->
-<!--            android:id="@+id/action_bar_cart"-->
-<!--            android:layout_width="24dp"-->
-<!--            android:layout_height="24dp"-->
-<!--            android:layout_alignParentTop="true"-->
-<!--            android:layout_centerHorizontal="true"-->
-<!--            android:layout_gravity="center_vertical"-->
-<!--            android:background="@android:color/transparent"-->
-<!--            android:scaleType="fitCenter"-->
-<!--            android:src="@drawable/shopping_cart"-->
-<!--            android:tint="#818A91" />-->
+
+        <ImageButton
+            android:id="@+id/action_bar_cart"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_vertical"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/shopping_cart"
+            android:layout_marginRight="20dp"
+            android:tint="#818A91" />
 
 
                 <ImageButton

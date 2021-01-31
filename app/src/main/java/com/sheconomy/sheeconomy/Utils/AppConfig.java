@@ -9,16 +9,14 @@ import java.text.DecimalFormat;
 public class AppConfig {
     public static AppSettings appSettings;
 
-    public static String BASE_URL = "https://sheconomy.in/api/v1/";
-    public static String ASSET_URL = "https://sheconomy.in/public/";
+//    public static String BASE_URL = "https://sheconomy.in/api/v1/";
+//    public static String ASSET_URL = "https://sheconomy.in/public/";
 
 //    public static String BASE_URL = "http://172.15.5.53/api/v1/";
 //    public static String ASSET_URL = "http://172.15.5.53/public/";
 
-//    public static String BASE_URL = "http://192.168.0.186/api/v1/";
-//    public static String ASSET_URL = "http://192.168.0.186/public/";
-
-
+    public static String BASE_URL = "http://192.168.0.186/api/v1/";
+    public static String ASSET_URL = "http://192.168.0.186/public/";
 
 
 //    public static String BASE_URL = "http://192.168.0.129/shop/api/v1/";

@@ -170,7 +170,7 @@
                         android:layout_marginLeft="10dp"
                         android:ellipsize="end"
                         android:text="Status"
-                        android:textColor="@color/colorPrimary"/>
+                        android:textColor="@color/colorAccent"/>
 
                     <TextView
                         android:id="@+id/total_amount_text"
@@ -192,7 +192,7 @@
                         android:layout_marginRight="10dp"
                         android:ellipsize="end"
                         android:text="Amount"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/colorAccent"
                         android:textStyle="bold"/>
 
 

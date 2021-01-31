@@ -145,9 +145,14 @@ public class SellerShopActivity extends BaseActivity implements SellerShopView, 
 
     @Override
     public void onProductItemClick(Product product) {
+        //product click lister
+        Intent intent = new Intent(this, ProductDetailsActivity.class);
+        intent.putExtra("product_name", product.getName());
+        intent.putExtra("link", product.getLinks().getDetails());
+        intent.putExtra("top_selling", product.getLinks().getRelated());
+        startActivity(intent);
 
     }
-
     /**
      * This method converts dp unit to equivalent pixels, depending on device density.
      *
