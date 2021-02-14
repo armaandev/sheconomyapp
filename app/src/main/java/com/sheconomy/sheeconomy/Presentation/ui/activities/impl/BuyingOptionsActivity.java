@@ -10,6 +10,7 @@ import android.graphics.drawable.DrawableContainer;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sheconomy.sheeconomy.Models.ChoiceOption;
 import com.sheconomy.sheeconomy.Models.ProductDetails;
@@ -245,14 +247,26 @@ public class BuyingOptionsActivity extends BaseActivity implements BuyingOptionV
     private void processAddToCart(){
         AuthResponse authResponse = new UserPrefs(getApplicationContext()).getAuthPreferenceObjectJson("auth_response");
         if(authResponse != null && authResponse.getUser() != null){
-            if (variantResponse != null && variantResponse.getInStock()){
-                //Log.d("Test", variantResponse.getVariant());
+             if (variantResponse != null && variantResponse.getInStock() && variantResponse.getWeight()!=null )
+                {
+//                Log.d("Arman", variantResponse.getVariant());
+//                Log.d("Arman", "hi this is me");
                 progressDialog.setMessage("Adding item to your shopping cart. Please wait.");
                 progressDialog.show();
                 buyingOptionPresenter.addToCart(authResponse.getAccessToken(), authResponse.getUser().getId(), variantResponse.getProductId(), variantResponse.getVariant());
             }
-            else {
-                CustomToast.showToast(BuyingOptionsActivity.this, "This variant of this product isn't available now", R.color.colorWarning);
+//             else if(variantResponse.getWeight()==null){
+//                CustomToast.showToast(BuyingOptionsActivity.this, "Either supplier isn't accepting the payment, Weight of " +
+//                        "Product is not mentioned yet OR has'nt updated the shipping details for this product yet!.", R.color.colorPrimaryDark);
+//            }
+
+            else  {
+                CustomToast.showToast(BuyingOptionsActivity.this, "The variant of this product isn't available now or " +
+                        "supplier isn't accepting the payment, Weight of \" +\n" +
+                        "  \"Product is not mentioned yet OR has'nt updated the shipping details for this product yet!. ", R.color.colorWarning);
+                //add new line
+                buyNow.setVisibility(View.GONE);
+                addTocart.setVisibility(View.GONE);
             }
         }
         else {

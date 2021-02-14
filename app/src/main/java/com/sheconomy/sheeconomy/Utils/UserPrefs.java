@@ -9,7 +9,9 @@ import com.google.gson.Gson;
 
 public class UserPrefs{
 
-    private static final String PREFS_NAME = "com.activeitzone.cms.UserPrefs";
+//    private static final String PREFS_NAME = "com.activeitzone.cms.UserPrefs";
+    private static final String PREFS_NAME = "com.sheconomy.cms.UserPrefs";
+
 
     private static SharedPreferences settings;
 

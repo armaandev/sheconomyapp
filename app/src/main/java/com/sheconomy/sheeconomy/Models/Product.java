@@ -52,6 +52,13 @@ public class Product implements Serializable {
     @SerializedName("links")
     @Expose
     private ProductLinks links;
+    //new share product
+    @SerializedName("share_product")
+    @Expose
+    private String share_product;
+    @SerializedName("current_stock")
+    @Expose
+    private Integer currentStock;
 
     public String getName() {
         return name;
@@ -171,5 +178,21 @@ public class Product implements Serializable {
 
     public void setLinks(ProductLinks links) {
         this.links = links;
+    }
+
+    public String getShareProduct() {
+        return share_product;
+    }
+
+    public void setShareProduct(String share_product) {
+        this.share_product = share_product;
+    }
+
+    public Integer getCurrentStock() {
+        return currentStock;
+    }
+
+    public void setCurrentStock(Integer currentStock) {
+        this.currentStock = currentStock;
     }
 }

@@ -1,5 +1,6 @@
 package com.sheconomy.sheeconomy.Presentation.ui.activities.impl;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,6 +21,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.navigation.NavigationView;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.PermissionListener;
 import com.sheconomy.sheeconomy.Network.response.AppSettingsResponse;
 import com.sheconomy.sheeconomy.Presentation.ui.fragments.impl.AccountFragment;
 import com.sheconomy.sheeconomy.Presentation.ui.fragments.impl.CartFragment;
@@ -94,27 +101,40 @@ public class MainActivity extends AppCompatActivity implements AppSettingsIntera
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+        Dexter.withContext(this)
+                .withPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+                .withListener(new PermissionListener() {
+                    @Override public void onPermissionGranted(PermissionGrantedResponse response) {
+
+                        }
+                    @Override public void onPermissionDenied(PermissionDeniedResponse response) {/* ... */}
+                    @Override public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {/* ... */}
+                }).check();
 
 //      Toolbar toolbar=findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
 //        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        drawerLayout=findViewById(R.id.drawerLayout);
-       navigationView=findViewById(R.id.navigation_view);
-        toggle=new ActionBarDrawerToggle(this,drawerLayout,R.string.open,R.string.close);
-       drawerLayout.addDrawerListener(toggle);
-       toggle.syncState();
+//        drawerLayout=findViewById(R.id.drawerLayout);
+//       navigationView=findViewById(R.id.navigation_view);
+//        toggle=new ActionBarDrawerToggle(this,drawerLayout,R.string.open,R.string.close);
+//       drawerLayout.addDrawerListener(toggle);
+//       toggle.syncState();
+
 //        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_list);
 //        getSupportActionBar().setHomeButtonEnabled(true);
 //        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_HOME_AS_UP);
 //        getSupportActionBar().setIcon(android.R.color.holo_blue_dark);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
-       navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-           @Override
-           public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-               return true;
-           }
-       });
+
+
+//        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+//
+//       navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+//           @Override
+//           public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//               return true;
+//           }
+//       });
 
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setDisplayShowCustomEnabled(true);

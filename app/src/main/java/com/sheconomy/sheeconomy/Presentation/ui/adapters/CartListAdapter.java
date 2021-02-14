@@ -1,6 +1,7 @@
 package com.sheconomy.sheeconomy.Presentation.ui.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -92,9 +93,13 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.ViewHo
             variant.setText(product.getVariation());
             shipping_cost.setText("Shipping Cost - "+AppConfig.convertPrice(context, product.getShippingCost()));
             quantity.setText(product.getQuantity().toString());
-
+            //new line for variant
             if(Integer.parseInt(quantity.getText().toString()) <= 1){
                 qtyDecrease.setEnabled(false);
+            }
+            //new line added
+            if(Integer.parseInt(quantity.getText().toString()) >= 10){
+                qtyIncrease.setEnabled(false);
             }
 
             qtyIncrease.setOnClickListener(new View.OnClickListener() {
@@ -104,6 +109,10 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.ViewHo
                     quantity.setText(String.valueOf(qty));
                     qtyDecrease.setEnabled(true);
                     cartItemListener.onQuantityUpdate(qty, product);
+                    //new line added
+                    if(qty==10){
+                        qtyIncrease.setEnabled(false);
+                    }
                 }
             });
 

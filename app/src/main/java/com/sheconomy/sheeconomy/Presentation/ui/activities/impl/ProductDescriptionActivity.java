@@ -18,6 +18,7 @@ public class ProductDescriptionActivity extends BaseActivity {
 
         initializeActionBar();
         setTitle(product_name);
+//        setTitle("Arman");
         initviews();
     }
 

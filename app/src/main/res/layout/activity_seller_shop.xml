@@ -71,17 +71,18 @@
                         android:layout_toRightOf="@id/shop_logo"
                         android:text="Inhouse Product" />
 
-                    <Button
-                        android:id="@+id/btn_shop"
+                    <TextView
+                        android:id="@+id/btn_test"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:layout_marginLeft="20dp"
                         android:layout_toRightOf="@id/shop_name"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/colorAccent"
                         android:backgroundTint="#5A6268"
                         android:textAllCaps="false"
                         android:text="Contact Supplier" />
+
 
                 </RelativeLayout>
 
@@ -96,65 +97,65 @@
                 android:orientation="vertical"
                 android:divider="@android:color/black">
 
+<!--                <RelativeLayout-->
+<!--                    android:foreground="?android:attr/selectableItemBackground"-->
+<!--                    android:id="@+id/buying_option"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginBottom="5dp"-->
+<!--                    android:background="@android:color/white"-->
+<!--                    android:paddingLeft="10dp"-->
+<!--                    android:paddingTop="@dimen/activity_horizontal_margin"-->
+<!--                    android:paddingRight="10dp"-->
+<!--                    android:paddingBottom="@dimen/activity_horizontal_margin">-->
+
+<!--                    <ImageView-->
+<!--                        android:layout_width="15dp"-->
+<!--                        android:layout_height="15dp"-->
+<!--                        android:layout_alignParentRight="true"-->
+<!--                        android:layout_centerInParent="true"-->
+<!--                        android:paddingRight="10dp"-->
+<!--                        app:srcCompat="@drawable/arrow" />-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Store Home"-->
+<!--                        android:textColor="#000000"-->
+<!--                        android:textStyle="bold" />-->
+
+<!--                </RelativeLayout>-->
+<!--                <RelativeLayout-->
+<!--                    android:foreground="?android:attr/selectableItemBackground"-->
+<!--                    android:id="@+id/specification"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginBottom="5dp"-->
+<!--                    android:background="@android:color/white"-->
+<!--                    android:paddingLeft="10dp"-->
+<!--                    android:paddingTop="@dimen/activity_horizontal_margin"-->
+<!--                    android:paddingRight="10dp"-->
+<!--                    android:paddingBottom="@dimen/activity_horizontal_margin">-->
+
+<!--                    <ImageView-->
+<!--                        android:layout_width="15dp"-->
+<!--                        android:layout_height="15dp"-->
+<!--                        android:layout_alignParentRight="true"-->
+<!--                        android:layout_centerInParent="true"-->
+<!--                        android:paddingRight="10dp"-->
+<!--                        app:srcCompat="@drawable/arrow" />-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="All products"-->
+<!--                        android:textColor="#000000"-->
+<!--                        android:textStyle="bold" />-->
+
+<!--                </RelativeLayout>-->
                 <RelativeLayout
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:id="@+id/buying_option"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:background="@android:color/white"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="@dimen/activity_horizontal_margin"
-                    android:paddingRight="10dp"
-                    android:paddingBottom="@dimen/activity_horizontal_margin">
-
-                    <ImageView
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerInParent="true"
-                        android:paddingRight="10dp"
-                        app:srcCompat="@drawable/arrow" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Store Home"
-                        android:textColor="#000000"
-                        android:textStyle="bold" />
-
-                </RelativeLayout>
-                <RelativeLayout
-                    android:foreground="?android:attr/selectableItemBackground"
-                    android:id="@+id/specification"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:background="@android:color/white"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="@dimen/activity_horizontal_margin"
-                    android:paddingRight="10dp"
-                    android:paddingBottom="@dimen/activity_horizontal_margin">
-
-                    <ImageView
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerInParent="true"
-                        android:paddingRight="10dp"
-                        app:srcCompat="@drawable/arrow" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="All products"
-                        android:textColor="#000000"
-                        android:textStyle="bold" />
-
-                </RelativeLayout>
-                <RelativeLayout
-                    android:foreground="?android:attr/selectableItemBackground"
-                    android:id="@+id/reviews"
+                    android:id="@+id/about_us"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
@@ -205,7 +206,63 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="policies"
+                        android:text="Refund Policy"
+                        android:textColor="#000000"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:id="@+id/seller_shipping_policy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:background="@android:color/white"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="@dimen/activity_horizontal_margin"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="@dimen/activity_horizontal_margin">
+
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerInParent="true"
+                        android:paddingRight="10dp"
+                        app:srcCompat="@drawable/arrow" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Shipping Policy"
+                        android:textColor="#000000"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:id="@+id/seller_payment_policy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:background="@android:color/white"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="@dimen/activity_horizontal_margin"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="@dimen/activity_horizontal_margin">
+
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerInParent="true"
+                        android:paddingRight="10dp"
+                        app:srcCompat="@drawable/arrow" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Payment Policy"
                         android:textColor="#000000"
                         android:textStyle="bold" />
 
@@ -213,7 +270,7 @@
 
                 <RelativeLayout
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:id="@+id/return_policy"
+                    android:id="@+id/feedback"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
@@ -241,7 +298,7 @@
 
                 <RelativeLayout
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:id="@+id/support_policy"
+                    android:id="@+id/contact_us"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"

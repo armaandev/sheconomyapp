@@ -40,6 +40,31 @@ public class Shop {
     @Expose
     private ShopLink links;
 
+    @SerializedName("about")
+    @Expose
+    private String about;
+
+    @SerializedName("email")
+    @Expose
+    private String email;
+
+    @SerializedName("state")
+    @Expose
+    private String state;
+
+    @SerializedName("refund_policy")
+    @Expose
+    private String refund_policy;
+
+    @SerializedName("shipping_policy")
+    @Expose
+    private String shipping_policy;
+
+    @SerializedName("payment_policy")
+    @Expose
+    private String payment_policy;
+
+
     public String getName() {
         return name;
     }
@@ -126,5 +151,45 @@ public class Shop {
 
     public void setLinks(ShopLink links) {
         this.links = links;
+    }
+
+    public String getAbout() {
+        return about;
+    }
+
+    public void setAbout(String about) {
+        this.about = about;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+
+    public String getRefund_policy() { return refund_policy; }
+    public void setRefund_policy(String refund_policy) {
+        this.refund_policy = refund_policy;
+    }
+
+    public String getShipping_policy() { return shipping_policy; }
+    public void setShipping_policy(String shipping_policy) {
+        this.shipping_policy = shipping_policy;
+    }
+
+    public String getPayment_policy() { return payment_policy; }
+    public void setPayment_policy(String payment_policy) {
+        this.payment_policy = payment_policy;
     }
 }

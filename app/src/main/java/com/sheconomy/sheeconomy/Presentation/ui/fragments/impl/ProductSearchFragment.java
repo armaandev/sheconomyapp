@@ -143,6 +143,8 @@ public class ProductSearchFragment extends Fragment implements ProductSearchView
         intent.putExtra("product_name", product.getName());
         intent.putExtra("link", product.getLinks().getDetails());
         intent.putExtra("top_selling", product.getLinks().getRelated());
+        //new line
+        intent.putExtra("share_product",product.getShareProduct());
         startActivity(intent);
     }
 

@@ -34,7 +34,6 @@ public class ProductListingActivity extends BaseActivity implements ProductListi
     private RecyclerView recyclerView;
     private ProgressBar progressBar;
     private TextView products_empty_text;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

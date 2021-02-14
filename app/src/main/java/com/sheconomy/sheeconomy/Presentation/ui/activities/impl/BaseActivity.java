@@ -16,7 +16,6 @@ public class BaseActivity extends AppCompatActivity {
     protected ImageButton cart,search;
     protected TextView title;
   //  private Button search;
-
     public void initializeActionBar(){
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setDisplayShowCustomEnabled(true);

@@ -71,6 +71,7 @@ import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import cn.iwgang.countdownview.CountdownView;
+import jp.wasabeef.glide.transformations.BlurTransformation;
 
 public class HomeFragment extends Fragment implements HomeView, CategoryClickListener, BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener, ProductClickListener, BrandClickListener, AuctionClickListener {
     private View v;
@@ -157,7 +158,7 @@ public class HomeFragment extends Fragment implements HomeView, CategoryClickLis
        // sliderLayout.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
         sliderLayout.addOnPageChangeListener(this);
         sliderLayout.setVisibility(View.VISIBLE);
-        //Glide.with(getContext()).load(AppConfig.ASSET_URL + sliderImages.get(0).getPhoto()).transform(new BlurTransformation(75, 1)).into(imageSliderShadow);
+//        Glide.with(getContext()).load(AppConfig.ASSET_URL + sliderImages.get(0).getPhoto()).transform(new BlurTransformation(75, 1)).into(imageSliderShadow);
     }
 
     @Override
@@ -402,6 +403,9 @@ public class HomeFragment extends Fragment implements HomeView, CategoryClickLis
         intent.putExtra("product_name", product.getName());
         intent.putExtra("link", product.getLinks().getDetails());
         intent.putExtra("top_selling", product.getLinks().getRelated());
+        //new line for testing
+        intent.putExtra("share_product",product.getShareProduct());
+//        intent.putExtra("currentStock",product.getCurrentStock());
         startActivity(intent);
     }
 
@@ -427,7 +431,6 @@ public class HomeFragment extends Fragment implements HomeView, CategoryClickLis
         current_bid_amount.setText(AppConfig.convertPrice(getContext(), auctionProduct.getCurrentPrice()));
         total_bids.setText(auctionProduct.getBidsCount()+" Bids");
         name.setText(auctionProduct.getName());
-
 
         dialog = new BottomSheetDialog(getContext());
         dialog.setContentView(view);

@@ -51,8 +51,8 @@ public class FeaturedProductAdapter extends RecyclerView.Adapter<FeaturedProduct
     // total number of rows
     @Override
     public int getItemCount() {
-        return 12;
-                //mProducts.size();
+//        return 12;
+            return mProducts.size();
     }
 
     // convenience method for getting data at click position

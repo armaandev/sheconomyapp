@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -49,6 +50,8 @@ import java.util.List;
 
 public class ProductDetailsActivity extends BaseActivity implements ProductDetailsView, ProductClickListener {
     private String product_name, link, top_selling_link;
+    private String share_product;
+//    private String currentStock;
     private SliderLayout sliderLayout;
     private TextView name;
     private RatingBar ratingBar;
@@ -69,17 +72,19 @@ public class ProductDetailsActivity extends BaseActivity implements ProductDetai
     private boolean isBuyNow = false;
     private Button btn_shop;
     private RelativeLayout share;
+    private TextView prodct_stock;
     //  private String path;
-
     //private TextView tvBuying;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_details);
-
         product_name = getIntent().getStringExtra("product_name");
+        share_product = getIntent().getStringExtra("share_product");
         link = getIntent().getStringExtra("link");
         top_selling_link = getIntent().getStringExtra("top_selling");
+//        currentStock= Integer.parseInt(String.valueOf(Integer.parseInt(getIntent().getStringExtra("currentStock"))));
+//        currentStock=getIntent().getStringExtra("currentStock");
 
         initializeActionBar();
         setTitle(product_name);
@@ -89,27 +94,30 @@ public class ProductDetailsActivity extends BaseActivity implements ProductDetai
         product_details.setVisibility(View.INVISIBLE);
         product_buttons.setVisibility(View.INVISIBLE);
         image_card.setVisibility(View.GONE);
-        buying_option.setVisibility(View.GONE);
+//        buying_option.setVisibility(View.GONE);
 
         productDetailsPresenter = new ProductDetailsPresenter(ThreadExecutor.getInstance(), MainThreadImpl.getInstance(), this);
-
         productDetailsPresenter.getProductDetails(link);
 
-        seller_policy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), PolicyViewActivity.class);
-                intent.putExtra("title", "Seller Policy");
-                intent.putExtra("url", "policies/seller");
-                startActivity(intent);
-            }
-        });
+
+//        seller_policy.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getApplicationContext(), PolicyViewActivity.class);
+//                intent.putExtra("title", "Seller Policy");
+//                intent.putExtra("url", "policies/seller");
+//                startActivity(intent);
+//            }
+//        });
+        //prodct_stock.setText("instock");
 
        specification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent(getApplicationContext(), ProductDescriptionActivity.class);
                 intent.putExtra("product_name", productDetails.getName());
+    //                intent.putExtra("description", productDetails.getAddedBy());
                 intent.putExtra("description", productDetails.getDescription());
                 startActivity(intent);
             }
@@ -133,31 +141,32 @@ public class ProductDetailsActivity extends BaseActivity implements ProductDetai
             }
         });
 
-        return_policy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), PolicyViewActivity.class);
-                intent.putExtra("title", "Return Policy");
-                intent.putExtra("url", "policies/return");
-                startActivity(intent);
-            }
-        });
+//        return_policy.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getApplicationContext(), PolicyViewActivity.class);
+//                intent.putExtra("title", "Return Policy");
+//                intent.putExtra("url", "policies/return");
+//                startActivity(intent);
+//            }
+//        });
 
-        support_policy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), PolicyViewActivity.class);
-                intent.putExtra("title", "Support Policy");
-                intent.putExtra("url", "policies/support");
-                startActivity(intent);
-            }
-        });
+//        support_policy.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getApplicationContext(), PolicyViewActivity.class);
+//                intent.putExtra("title", "Support Policy");
+//                intent.putExtra("url", "policies/support");
+//                startActivity(intent);
+//            }
+//        });
 
 
-        if(productDetails != null && (productDetails.getChoiceOptions().size() > 0 || productDetails.getColors().size() > 0)){
-            buying_option.setVisibility(View.VISIBLE);
+//        if(productDetails == null && (productDetails.getChoiceOptions().size() == 0 || productDetails.getColors().size() == 0)){
+//            Toast.makeText(this, "Helloooooooooooooooo", Toast.LENGTH_SHORT).show();
+//            buying_option.setVisibility(View.GONE);
+//        }
 
-        }
         buying_option.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -189,28 +198,14 @@ public class ProductDetailsActivity extends BaseActivity implements ProductDetai
     }
 
     private void processToshare() {
-        Toast.makeText(this, "Share Has been clicked", Toast.LENGTH_SHORT).show();
-        product_name = getIntent().getStringExtra("product_name");
-        link = getIntent().getStringExtra("link");
-        String shareLink=link.toString();
-        //share = getIntent().getStringExtra("share");
-
-        //top_selling_link = getIntent().getStringExtra("top_selling");
-//        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
-//        Uri screenshotUri = Uri.parse(path);
-//
-//        sharingIntent.setType("image/png");
-//        sharingIntent.putExtra(Intent.EXTRA_STREAM, screenshotUri);
-//        startActivity(Intent.createChooser(sharingIntent, "Share image using"));
-        Intent sentIntent= new Intent();
-       sentIntent.setAction(Intent.ACTION_SEND);
-       sentIntent.setType("text/plain");
-       sentIntent.putExtra(Intent.EXTRA_TEXT,product_name);
-
-      // sentIntent.putExtra(Intent.EXTRA_TEXT,share);
-        sentIntent.putExtra(Intent.EXTRA_TEXT,shareLink);
-       startActivity(sentIntent);
-
+        share_product = getIntent().getStringExtra("share_product");
+        Intent sendIntent=new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.setType("text/plain");
+        sendIntent.putExtra(Intent.EXTRA_TEXT,share_product);
+        startActivity(sendIntent);
+//        Log.d("Adnan", share_product);
+//        Log.i("Adnan", share_product);
     }
 
     private void processAddToCart(){
@@ -260,9 +255,9 @@ public class ProductDetailsActivity extends BaseActivity implements ProductDetai
         specification = findViewById(R.id.specification);
         //description = findViewById(R.id.description);
         reviews = findViewById(R.id.reviews);
-        seller_policy = findViewById(R.id.seller_policy);
-        return_policy = findViewById(R.id.return_policy);
-        support_policy = findViewById(R.id.support_policy);
+//        seller_policy = findViewById(R.id.seller_policy);
+//        return_policy = findViewById(R.id.return_policy);
+//        support_policy = findViewById(R.id.support_policy);
         related_products = findViewById(R.id.related_products);
         top_selling = findViewById(R.id.top_selling);
 
@@ -276,6 +271,7 @@ public class ProductDetailsActivity extends BaseActivity implements ProductDetai
         btn_shop=findViewById(R.id.btn_shop);
         //tvBuying=findViewById(R.id.tvBuying);
         share=findViewById(R.id.share);
+        prodct_stock=findViewById(R.id.currentStock);
     }
 
     @Override
@@ -294,8 +290,11 @@ public class ProductDetailsActivity extends BaseActivity implements ProductDetai
         image_card.setVisibility(View.VISIBLE);
 
         name.setText(productDetails.getName());
+
+
         ratingBar.setRating(productDetails.getRating());
         rating_count.setText("("+productDetails.getRatingCount()+")");
+        prodct_stock.setText("("+productDetails.getCurrentStock()+")");
 
         authResponse = new UserPrefs(getApplicationContext()).getAuthPreferenceObjectJson("auth_response");
         if(authResponse != null && authResponse.getUser() != null){
@@ -353,7 +352,7 @@ public class ProductDetailsActivity extends BaseActivity implements ProductDetai
         product_details.setVisibility(View.VISIBLE);
         product_buttons.setVisibility(View.VISIBLE);
         //new btn
-        buying_option.setVisibility(View.VISIBLE);
+//        buying_option.setVisibility(View.VISIBLE);
 
         new ProductDetailsPresenter(ThreadExecutor.getInstance(), MainThreadImpl.getInstance(), this).getRelatedProducts(productDetails.getLinks().getRelated());
 

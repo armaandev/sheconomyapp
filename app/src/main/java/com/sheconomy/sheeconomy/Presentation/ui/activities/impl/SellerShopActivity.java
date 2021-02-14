@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sheconomy.sheeconomy.Models.Product;
+import com.sheconomy.sheeconomy.Models.ProductDetails;
 import com.sheconomy.sheeconomy.Models.Shop;
 import com.sheconomy.sheeconomy.Presentation.presenters.ShopPresenter;
 import com.sheconomy.sheeconomy.Presentation.ui.activities.SellerShopView;
@@ -40,7 +43,10 @@ public class SellerShopActivity extends BaseActivity implements SellerShopView, 
     private TextView featured,top_selling, new_arrival;
     private NestedScrollView shop_details;
     private Button btn_seller_products;
-
+    //new added properties
+    private RelativeLayout about_us, feedback, contact_us, seller_policy, refund_policy,shipping_policy,payment_policy;
+    private Shop shop= new Shop();
+    private  TextView btn_test;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +67,33 @@ public class SellerShopActivity extends BaseActivity implements SellerShopView, 
 
         shopPresenter = new ShopPresenter(ThreadExecutor.getInstance(), MainThreadImpl.getInstance(), this);
         shopPresenter.getShopDetails(shop_link);
+
+
+//        seller_policy.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getApplicationContext(), PolicyViewActivity.class);
+//                intent.putExtra("title", "Seller Policy");
+//                intent.putExtra("url", "policies/seller");
+//                startActivity(intent);
+//                Intent intent = new Intent(getApplicationContext(), SellerPoliciesOptActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+
+
+        feedback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(SellerShopActivity.this, "Blank ", Toast.LENGTH_LONG).show();
+            }
+        });
+//        contact_us.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(SellerShopActivity.this, "Blank ", Toast.LENGTH_LONG).show();
+//            }
+//        });
     }
 
     private void initviews(){
@@ -72,6 +105,17 @@ public class SellerShopActivity extends BaseActivity implements SellerShopView, 
         new_arrival = findViewById(R.id.new_products_text);
         shop_details = findViewById(R.id.shop_details);
         btn_seller_products = findViewById(R.id.btnSellerProducts);
+        //new added
+//       store_home = findViewById(R.id.reviews);
+//       seller_policy = findViewById(R.id.seller_policy);
+       about_us = findViewById(R.id.about_us);
+       feedback = findViewById(R.id.feedback);
+       contact_us = findViewById(R.id.contact_us);
+       btn_test=findViewById(R.id.btn_test);
+
+       refund_policy=findViewById(R.id.seller_policy);
+       shipping_policy=findViewById(R.id.seller_shipping_policy);
+       payment_policy=findViewById(R.id.seller_payment_policy);
     }
 
     @Override
@@ -86,7 +130,8 @@ public class SellerShopActivity extends BaseActivity implements SellerShopView, 
         }
         sliderLayout.setPresetTransformer(SliderLayout.Transformer.Default);
         sliderLayout.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
-
+       //new line added
+//        btn_test.setText(shop.getRefund_policy());
         btn_seller_products.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,6 +141,61 @@ public class SellerShopActivity extends BaseActivity implements SellerShopView, 
                 startActivity(intent);
             }
         });
+
+        refund_policy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SellerShopActivity.this, SellerRefundActivity.class);
+                intent.putExtra("refund_policy", shop.getRefund_policy());
+                startActivity(intent);
+
+            }
+        });
+
+        shipping_policy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SellerShopActivity.this, SellerShippingActivity.class);
+                intent.putExtra("shipping_policy", shop.getShipping_policy());
+                startActivity(intent);
+            }
+        });
+        payment_policy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SellerShopActivity.this, SellerPaymentActivity.class);
+                intent.putExtra("payment_policy", shop.getPayment_policy());
+                startActivity(intent);
+            }
+        });
+
+     //new line for testing
+//        about_us.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(SellerShopActivity.this, shop.getAddress(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
+        about_us.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(SellerShopActivity.this,AboutUsActivity.class);
+                intent.putExtra("about",shop.getAbout());
+                startActivity(intent);
+            }
+        });
+        contact_us.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(SellerShopActivity.this, shop.getAddress(), Toast.LENGTH_LONG).show();
+                Intent intent= new Intent(SellerShopActivity.this,ContectUsActivity.class);
+                intent.putExtra("name",shop.getName());
+                intent.putExtra("email",shop.getUser().getEmail());
+                intent.putExtra("address",shop.getAddress());
+                startActivity(intent);
+            }
+        });
+
 
         new ShopPresenter(ThreadExecutor.getInstance(), MainThreadImpl.getInstance(), this).getFeaturedProducts(shop.getLinks().getFeatured());
 

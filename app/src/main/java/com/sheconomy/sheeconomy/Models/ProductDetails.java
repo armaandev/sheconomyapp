@@ -90,12 +90,9 @@ public class ProductDetails implements Serializable {
     private ProductDetailsLinks links;
 
 //new share
-    @SerializedName("share")
+    @SerializedName("share_product")
     @Expose
-    private String share;
-
-
-
+    private String share_product;
 
     public Integer getId() {
         return id;
@@ -313,10 +310,8 @@ public class ProductDetails implements Serializable {
         this.links = links;
     }
 //new getter
-    public String getShare() {
-        return share;
-    }
-    public void setShare(String share) {
-        this.share = share;
-    }
+    public String getShareProduct() { return share_product; }
+
+    public void setShareProduct(String share_product) { this.share_product = share_product; }
+
 }

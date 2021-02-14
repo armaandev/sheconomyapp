@@ -174,8 +174,11 @@ public class ShippingActivity extends BaseActivity implements AccountInfoView, S
                 alert.setOnShowListener( new DialogInterface.OnShowListener() {
                     @Override
                     public void onShow(DialogInterface arg0) {
-                        alert.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.GRAY);
-                        alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.colorPrimary));
+//                        alert.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.GRAY);
+                        alert.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                       alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+
+//                        alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.GREEN);
                     }
                 });
 

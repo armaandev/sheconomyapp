@@ -24,6 +24,10 @@ public class SearchProduct implements Serializable {
     @SerializedName("links")
     @Expose
     private ProductLinks links;
+    //new share
+    @SerializedName("share_product")
+    @Expose
+    private String share_product;
 
     public String getName() {
         return name;
@@ -72,4 +76,11 @@ public class SearchProduct implements Serializable {
     public void setLinks(ProductLinks links) {
         this.links = links;
     }
+
+
+    //new getter
+    public String getShareProduct() { return share_product; }
+
+    public void setShareProduct(String share_product) { this.share_product = share_product; }
+
 }

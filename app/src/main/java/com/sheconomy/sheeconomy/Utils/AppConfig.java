@@ -15,8 +15,8 @@ public class AppConfig {
 //    public static String BASE_URL = "http://172.15.5.53/api/v1/";
 //    public static String ASSET_URL = "http://172.15.5.53/public/";
 
-    public static String BASE_URL = "http://192.168.0.186/api/v1/";
-    public static String ASSET_URL = "http://192.168.0.186/public/";
+    public static String BASE_URL = "http://192.168.31.153/api/v1/";
+    public static String ASSET_URL = "http://192.168.31.153/public/";
 
 
 //    public static String BASE_URL = "http://192.168.0.129/shop/api/v1/";
@@ -31,6 +31,12 @@ public class AppConfig {
         appSettings = new UserPrefs(context).getAppSettingsPreferenceObjectJson("app_settings_response").getData().get(0);
         return appSettings.getCurrency().getSymbol() + new DecimalFormat("#,###.00").format(Double.parseDouble(String.valueOf(price*appSettings.getCurrency().getExchangeRate())));
     }
+//    //new Currency
+//    public static String convertPrice(Context context, Integer price) {
+//        appSettings = new UserPrefs(context).getAppSettingsPreferenceObjectJson("app_settings_response").getData().get(0);
+//        return appSettings.getCurrency().getSymbol() + (price*appSettings.getCurrency().getExchangeRate());
+  //  }
+
 
     public static AppSettings getAppSettings(Context context){
         return new UserPrefs(context).getAppSettingsPreferenceObjectJson("app_settings_response").getData().get(0);

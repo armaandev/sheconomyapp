@@ -17,6 +17,11 @@ public class VariantResponse {
     @SerializedName("in_stock")
     @Expose
     private Boolean inStock;
+    //new add
+    @SerializedName("weight")
+    @Expose
+    private String weight;
+
 
     public Integer getProductId() {
         return productId;
@@ -48,6 +53,15 @@ public class VariantResponse {
 
     public void setInStock(Boolean inStock) {
         this.inStock = inStock;
+    }
+
+//new getter setter
+    public String getWeight() {
+        return weight;
+    }
+
+    public void setWeight(String weight) {
+        this.weight = weight;
     }
 
 }
