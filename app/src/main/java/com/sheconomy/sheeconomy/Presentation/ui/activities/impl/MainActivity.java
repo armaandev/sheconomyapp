@@ -2,24 +2,40 @@ package com.sheconomy.sheeconomy.Presentation.ui.activities.impl;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.se.omapi.Session;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 //import android.widget.Toolbar;
-import androidx.appcompat.widget.Toolbar;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
@@ -27,6 +43,8 @@ import com.karumi.dexter.listener.PermissionDeniedResponse;
 import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
+import com.sheconomy.sheeconomy.Models.ChangeCurrency;
+import com.sheconomy.sheeconomy.Models.SellerPayments;
 import com.sheconomy.sheeconomy.Network.response.AppSettingsResponse;
 import com.sheconomy.sheeconomy.Presentation.ui.fragments.impl.AccountFragment;
 import com.sheconomy.sheeconomy.Presentation.ui.fragments.impl.CartFragment;
@@ -35,15 +53,24 @@ import com.sheconomy.sheeconomy.Presentation.ui.fragments.impl.HomeFragment;
 import com.sheconomy.sheeconomy.Presentation.ui.fragments.impl.ProductSearchFragment;
 import com.sheconomy.sheeconomy.R;
 import com.sheconomy.sheeconomy.Threading.MainThreadImpl;
+import com.sheconomy.sheeconomy.Utils.CountryLocation;
 import com.sheconomy.sheeconomy.Utils.CustomToast;
+import com.sheconomy.sheeconomy.Utils.SessionForCountry;
 import com.sheconomy.sheeconomy.Utils.UserPrefs;
 import com.sheconomy.sheeconomy.domain.executor.impl.ThreadExecutor;
 import com.sheconomy.sheeconomy.domain.interactors.AppSettingsInteractor;
+import com.sheconomy.sheeconomy.domain.interactors.ChangeCurrencyInteractor;
+import com.sheconomy.sheeconomy.domain.interactors.SellerPaymentsInteractor;
 import com.sheconomy.sheeconomy.domain.interactors.impl.AppSettingsInteractorImpl;
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.sheconomy.sheeconomy.domain.interactors.impl.ChangeCurrencyInteractorImp;
+import com.sheconomy.sheeconomy.domain.interactors.impl.SellerPaymentsInteratorImp;
 
-import java.util.Objects;
+import java.io.IOException;
+import java.util.Currency;
+import java.util.List;
+import java.util.Locale;
 
 import q.rorbin.badgeview.QBadgeView;
 
@@ -60,11 +87,10 @@ public class MainActivity extends AppCompatActivity implements AppSettingsIntera
     private ImageButton cart,search;
     //private Button search;
     private TextView title;
-//new drawer
-    private DrawerLayout drawerLayout;
-    private ActionBarDrawerToggle toggle;
-    private static NavigationView navigationView;
+    FusedLocationProviderClient fusedLocationProviderClient;
 
+     String Country_name = "";
+    
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -101,40 +127,95 @@ public class MainActivity extends AppCompatActivity implements AppSettingsIntera
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
-        Dexter.withContext(this)
-                .withPermission(Manifest.permission.ACCESS_FINE_LOCATION)
-                .withListener(new PermissionListener() {
-                    @Override public void onPermissionGranted(PermissionGrantedResponse response) {
 
-                        }
-                    @Override public void onPermissionDenied(PermissionDeniedResponse response) {/* ... */}
-                    @Override public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {/* ... */}
-                }).check();
-
-//      Toolbar toolbar=findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-//        drawerLayout=findViewById(R.id.drawerLayout);
-//       navigationView=findViewById(R.id.navigation_view);
-//        toggle=new ActionBarDrawerToggle(this,drawerLayout,R.string.open,R.string.close);
-//       drawerLayout.addDrawerListener(toggle);
-//       toggle.syncState();
-
-//        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_list);
-//        getSupportActionBar().setHomeButtonEnabled(true);
-//        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_HOME_AS_UP);
-//        getSupportActionBar().setIcon(android.R.color.holo_blue_dark);
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(MainActivity.this);
+              if(ActivityCompat.checkSelfPermission(MainActivity.this,
+                      Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED )
+              {
+//                  getLocation();
+                  fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+                      @Override
+                      public void onComplete(@NonNull Task<Location> task) {
+                          //Initialize Location
+                          Location location = task.getResult();
+                            if(location != null){
+                              //Initialize address
+                              try {
+                                   //Initialize geocoder
+                                  Geocoder geocoder = new Geocoder(MainActivity.this,Locale.getDefault());
+                                  List<Address> addresses = geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
+                                  Currency currency = Currency.getInstance(addresses.get(0).getLocale());
+                                   String country_name = addresses.get(0).getCountryName();
 
 
+                                   if(country_name.equals("United States")) {
 
-//        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+                                       new ChangeCurrencyInteractorImp(ThreadExecutor.getInstance(), MainThreadImpl.getInstance(),
+                                               new ChangeCurrencyInteractor.CallBack() {
+                                                   @Override
+                                                   public void onChangeCurrenciesLoaded(List<ChangeCurrency> changeCurrencies) {
+                                                       System.out.println("....success");
+                                                       if (changeCurrencies.size() > 0) {
+                                                           String n = changeCurrencies.get(0).getCode();
+                                                       }
+                                                   }
+
+                                                   @Override
+                                                   public void onChangeCurrenciesLoadedError() {
+
+                                                       System.out.println("...failure");
+
+                                                   }
+
+                                               }, "Rupee").execute();
+                                   }
+                                    CustomToast.showToast(MainActivity.this, addresses.get(0).getLocality(), R.color.colorWarning);
+
+                              } catch (IOException e) {
+
+                                  e.printStackTrace();
+                              }
+                          }
+                      }
+                  });
+              }
+              else{
+                  ActivityCompat.requestPermissions(MainActivity.this,
+                          new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
+              }
+
+//        Dexter.withContext(this)
+//                .withPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+//                .withListener(new PermissionListener() {
+//                    @Override public void onPermissionGranted(PermissionGrantedResponse response) {
 //
-//       navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-//           @Override
-//           public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//               return true;
-//           }
-//       });
+//
+//                    }
+//                    @Override public void onPermissionDenied(PermissionDeniedResponse response) {/* ... */}
+//                    @Override public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {/* ... */}
+//                }).check();
+
+       // Creating Session class
+//
+//        class Session {
+//            private SharedPreferences prefs;
+//
+//            public Session(Context cntx) {
+//                // TODO Auto-generated constructor stub
+//                prefs = PreferenceManager.getDefaultSharedPreferences(cntx);
+//            }
+//
+//            public void setusename(String usename) {
+//                prefs.edit().putString("usename", "Arman").commit();
+//            }
+//
+//            public String getusename() {
+//                String usename = prefs.getString("usename","");
+//                return usename;
+//            }
+//        }
+//              Session session = new Session(getApplicationContext());
+//        Toast.makeText(this, session.getusename(), Toast.LENGTH_SHORT).show();
 
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
@@ -167,21 +248,6 @@ public class MainActivity extends AppCompatActivity implements AppSettingsIntera
 
         navView = findViewById(R.id.nav_view);
 
-        //new line for test
-//        drawerLayout=findViewById(R.id.drawerLayout);
-//        navigationView=findViewById(R.id.navigation_view);
-//
-//       toggle=new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.open,R.string.close);
-//       drawerLayout.addDrawerListener(toggle);
-//       toggle.syncState();
-//       navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-//           @Override
-//           public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//               return true;
-//           }
-//       });
-    //end line for test
-
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         BottomNavigationMenuView bottomNavigationMenuView =
                 (BottomNavigationMenuView) navView.getChildAt(0);
@@ -196,6 +262,7 @@ public class MainActivity extends AppCompatActivity implements AppSettingsIntera
 
         loadFragment(homeFragment);
     }
+
 
     private boolean loadFragment(Fragment fragment) {
         if (fragment != null) {
@@ -291,6 +358,5 @@ public class MainActivity extends AppCompatActivity implements AppSettingsIntera
     public void onAppSettingsLoadedError() {
 
     }
-
 
 }

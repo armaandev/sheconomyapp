@@ -18,7 +18,8 @@ import androidx.core.content.ContextCompat;
 import com.sheconomy.sheeconomy.R;
 
 public class CustomToast {
-    public static void showToast(Activity activity, String msg, int color){
+    public static void showToast(Activity activity, String msg, int color)
+    {
 
         LayoutInflater inflater = activity.getLayoutInflater();
         View layout = inflater.inflate(R.layout.custom_toast_layout,

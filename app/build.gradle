@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-
 android {
     compileSdkVersion 30
     defaultConfig {
@@ -34,6 +33,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.vectordrawable:vectordrawable:1.0.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.google.android.gms:play-services-location:18.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
@@ -69,8 +69,15 @@ dependencies {
     //Braintree
     implementation 'com.braintreepayments.api:drop-in:4.6.0'
 
+    //paypal
+    implementation 'com.paypal.sdk:paypal-android-sdk:2.14.2'
+
+
     //Badge
     implementation 'q.rorbin:badgeview:1.1.3'
+
+    //RazorPay
+    implementation 'com.razorpay:checkout:1.6.5'
 
     //Notifications
     implementation 'org.aviran.cookiebar2:cookiebar2:1.1.3'
@@ -91,6 +98,9 @@ dependencies {
 
     //Google
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
+
+    //location api
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
 
     //Carbon
     api 'tk.zielony:carbon:0.16.0.1'

@@ -26,7 +26,6 @@ public class ShippingInfoInteractorImpl extends AbstractInteractor {
         this.user_id = user_id;
         this.auth_token = "Bearer "+auth_token;
     }
-
     @Override
     public void run() {
         apiService = ApiClient.getClient().create(ShippingInfoApiInterface.class);

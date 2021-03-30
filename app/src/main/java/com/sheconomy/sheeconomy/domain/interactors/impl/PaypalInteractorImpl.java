@@ -51,6 +51,5 @@ public class PaypalInteractorImpl extends AbstractInteractor {
                 mCallback.onPayaplOrderSubmitError();
             }
         });
-
     }
 }

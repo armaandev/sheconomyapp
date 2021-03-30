@@ -7,29 +7,27 @@ import android.webkit.WebView;
 
 import com.sheconomy.sheeconomy.R;
 
-public class SellerShippingActivity extends BaseActivity {
-    private String sellerShipping;
+public class SellerRefundPolicyActivity extends BaseActivity {
+    private String sellerRefundPolicy;
     private WebView aboutWebView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_seller_shipping);
+        setContentView(R.layout.activity_seller_refund);
 
 
-
-        sellerShipping=getIntent().getStringExtra("shipping_policy");
+        sellerRefundPolicy=getIntent().getStringExtra("refund_policy");
 
 
         initializeActionBar();
-        setTitle(sellerShipping);
+        setTitle(sellerRefundPolicy);
         initviews();
 
     }
 
     private void initviews() {
         aboutWebView = findViewById(R.id.product_description);
-        aboutWebView.loadData(sellerShipping, "text/html", "UTF-8");
-
+        aboutWebView.loadData(sellerRefundPolicy, "text/html", "UTF-8");
     }
 }

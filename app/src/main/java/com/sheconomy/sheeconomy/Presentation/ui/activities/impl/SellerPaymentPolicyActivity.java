@@ -7,7 +7,7 @@ import android.webkit.WebView;
 
 import com.sheconomy.sheeconomy.R;
 
-public class SellerPaymentActivity extends BaseActivity {
+public class SellerPaymentPolicyActivity extends BaseActivity {
     private String sellerPayment;
     private WebView aboutWebView;
 

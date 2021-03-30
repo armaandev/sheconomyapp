@@ -1,29 +1,41 @@
 package com.sheconomy.sheeconomy.Presentation.presenters;
 
+import android.util.Log;
+
+import com.sheconomy.sheeconomy.Models.SellerPayments;
 import com.sheconomy.sheeconomy.Network.response.CouponResponse;
 import com.sheconomy.sheeconomy.Network.response.OrderResponse;
 import com.sheconomy.sheeconomy.Network.response.StripeClientSecretResponse;
 import com.sheconomy.sheeconomy.Presentation.ui.activities.PaymentView;
+import com.sheconomy.sheeconomy.Presentation.ui.activities.RazorPayView;
 import com.sheconomy.sheeconomy.Presentation.ui.activities.StripePaymentView;
+import com.sheconomy.sheeconomy.Presentation.ui.activities.impl.RazorPayActivity;
 import com.sheconomy.sheeconomy.domain.executor.Executor;
 import com.sheconomy.sheeconomy.domain.executor.MainThread;
 import com.sheconomy.sheeconomy.domain.interactors.CODInteractor;
 import com.sheconomy.sheeconomy.domain.interactors.CouponInteractor;
 import com.sheconomy.sheeconomy.domain.interactors.OrderInteractor;
 import com.sheconomy.sheeconomy.domain.interactors.PaypalInteractor;
+import com.sheconomy.sheeconomy.domain.interactors.RazorPayInteractor;
+import com.sheconomy.sheeconomy.domain.interactors.SellerPaymentsInteractor;
 import com.sheconomy.sheeconomy.domain.interactors.StripeInteractor;
 import com.sheconomy.sheeconomy.domain.interactors.WalletInteractor;
 import com.sheconomy.sheeconomy.domain.interactors.impl.CODInteractorImpl;
 import com.sheconomy.sheeconomy.domain.interactors.impl.CouponInteractorImpl;
 import com.sheconomy.sheeconomy.domain.interactors.impl.OrderInteractorImpl;
 import com.sheconomy.sheeconomy.domain.interactors.impl.PaypalInteractorImpl;
+import com.sheconomy.sheeconomy.domain.interactors.impl.SellerPaymentsInteratorImp;
 import com.sheconomy.sheeconomy.domain.interactors.impl.StripeInteractorImpl;
 import com.sheconomy.sheeconomy.domain.interactors.impl.WalletInteractorImpl;
 import com.google.gson.JsonObject;
 
-public class PaymentPresenter extends AbstractPresenter implements CouponInteractor.CallBack, PaypalInteractor.CallBack, StripeInteractor.CallBack, CODInteractor.CallBack, OrderInteractor.CallBack, WalletInteractor.CallBack {
+import java.util.List;
+
+public class PaymentPresenter extends AbstractPresenter implements CouponInteractor.CallBack, PaypalInteractor.CallBack, StripeInteractor.CallBack, CODInteractor.CallBack, OrderInteractor.CallBack, WalletInteractor.CallBack,RazorPayInteractor.CallBack {
     private PaymentView paymentView;
     private StripePaymentView stripePaymentView;
+    private RazorPayView razorPayView;
+    //SellerPaymentsInteractor.CallBack
 
     public PaymentPresenter(Executor executor, MainThread mainThread, PaymentView paymentView) {
         super(executor, mainThread);
@@ -34,6 +46,13 @@ public class PaymentPresenter extends AbstractPresenter implements CouponInterac
         super(executor, mainThread);
         this.stripePaymentView = stripePaymentView;
     }
+    //new line for razorPay
+
+    public PaymentPresenter(Executor executor, MainThread mainThread, RazorPayView razorPayView) {
+        super(executor, mainThread);
+        this.razorPayView = razorPayView;
+    }
+
 
     public void applyCoupon(int user_id, String code, String token) {
         new CouponInteractorImpl(mExecutor, mMainThread, this, user_id, code, token).execute();
@@ -46,6 +65,16 @@ public class PaymentPresenter extends AbstractPresenter implements CouponInterac
     public void submitStripeRequest(String token, JsonObject jsonObject) {
         new StripeInteractorImpl(mExecutor, mMainThread, this, token, jsonObject).execute();
     }
+    //new presenter for razorpay
+//    public void submitRazorPayRequest(String token, JsonObject jsonObject) {
+//        new RazorPayInteractorImpl(mExecutor, mMainThread, this, token, jsonObject).execute();
+//    }
+
+     //new presenter for sellerPayments
+
+//    public void getSellerPayment() {
+//        new SellerPaymentsInteratorImp(mExecutor, mMainThread, this).execute();
+//    }
 
     public void submitWalletOrder(String token, JsonObject jsonObject) {
         new WalletInteractorImpl(mExecutor, mMainThread, this, token, jsonObject).execute();
@@ -73,6 +102,7 @@ public class PaymentPresenter extends AbstractPresenter implements CouponInterac
 
     @Override
     public void onPayaplOrderSubmitted(OrderResponse orderResponse) {
+        Log.d("Khansb",orderResponse.toString());
         if (paymentView != null){
             paymentView.onOrderSubmitted(orderResponse);
         }
@@ -85,6 +115,7 @@ public class PaymentPresenter extends AbstractPresenter implements CouponInterac
 
     @Override
     public void ononClientSecretReceived(StripeClientSecretResponse stripeClientSecretResponse) {
+        Log.d("Chamar",stripeClientSecretResponse.toString());
         if (stripePaymentView != null){
             stripePaymentView.onClientSecretReceived(stripeClientSecretResponse);
         }
@@ -97,6 +128,7 @@ public class PaymentPresenter extends AbstractPresenter implements CouponInterac
 
     @Override
     public void onCODOrderSubmitted(OrderResponse orderResponse) {
+        Log.d("Aliyaaa",orderResponse.toString());
         if (paymentView != null){
             paymentView.onOrderSubmitted(orderResponse);
         }
@@ -121,6 +153,7 @@ public class PaymentPresenter extends AbstractPresenter implements CouponInterac
 
     @Override
     public void onWalletOrderSubmitted(OrderResponse orderResponse) {
+//        Log.d("Armaan",orderResponse.toString());
         if (paymentView != null){
             paymentView.onOrderSubmitted(orderResponse);
         }
@@ -130,4 +163,32 @@ public class PaymentPresenter extends AbstractPresenter implements CouponInterac
     public void onWalletOrderSubmitError() {
 
     }
+
+
+//new line added
+//    @Override
+//    public void onSellerPaymentsLoaded(List<SellerPayments> sellerPayments) {
+//        Log.d("SellerPayments",sellerPayments.toString());
+//        if (paymentView != null) {
+//            paymentView.onSellerDetailsLoaded(sellerPayments);
+//        }
+//    }
+//
+//    @Override
+//    public void onSellerPaymentsLoadError() {
+//
+//    }
+
+
+//    @Override
+//    public void onRazorPayOrderSubmitted(OrderResponse orderResponse) {
+//        if (paymentView != null){
+//            paymentView.onOrderSubmitted(orderResponse);
+//        }
+//    }
+//
+//    @Override
+//    public void onRazorPayOrderSubmitError() {
+//
+//    }
 }

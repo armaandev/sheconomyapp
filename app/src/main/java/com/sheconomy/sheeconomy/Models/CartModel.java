@@ -3,6 +3,8 @@ package com.sheconomy.sheeconomy.Models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class CartModel {
     @SerializedName("id")
     @Expose
@@ -28,6 +30,28 @@ public class CartModel {
     @SerializedName("date")
     @Expose
     private String date;
+    @SerializedName("seller_id")
+    @Expose
+    private Integer seller_id;
+
+    @SerializedName("seller_payment")
+    @Expose
+    private List<SellerPayments> paymentsDetails = null;
+    public List<SellerPayments> getPaymentsDetails() {
+        return paymentsDetails;
+    }
+
+    public void setPaymentsDetails(List<SellerPayments> paymentsDetails) {
+        this.paymentsDetails = paymentsDetails;
+    }
+
+    public Integer getSeller_id() {
+        return seller_id;
+    }
+
+    public void setSeller_id(Integer seller_id) {
+        this.seller_id = seller_id;
+    }
 
     public Integer getId() {
         return id;

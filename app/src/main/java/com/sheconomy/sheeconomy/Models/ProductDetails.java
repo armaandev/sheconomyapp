@@ -2,6 +2,7 @@ package com.sheconomy.sheeconomy.Models;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.stripe.android.model.SourceOrder;
 
 import java.io.Serializable;
 import java.util.List;
@@ -13,6 +14,11 @@ public class ProductDetails implements Serializable {
     @SerializedName("name")
     @Expose
     private String name;
+
+    @SerializedName("user_id")
+    @Expose
+    private Integer user_id;
+
     @SerializedName("description")
     @Expose
     private String description;
@@ -88,18 +94,33 @@ public class ProductDetails implements Serializable {
     @SerializedName("links")
     @Expose
     private ProductDetailsLinks links;
-
-//new share
+//new share button
     @SerializedName("share_product")
     @Expose
     private String share_product;
+    @SerializedName("weight")
+    @Expose
+    private String weight;
+
+    @SerializedName("shipping")
+    @Expose
+    private List<ShippingDetails> shippingsDetails = null;
+
+    @SerializedName("seller_payment")
+    @Expose
+    private List<SellerPayments> paymentsDetails = null;
 
     public Integer getId() {
         return id;
     }
+    public void setId(Integer id) { this.id = id; }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public Integer getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(Integer user_id) {
+        this.user_id = user_id;
     }
 
     public String getName() {
@@ -314,4 +335,33 @@ public class ProductDetails implements Serializable {
 
     public void setShareProduct(String share_product) { this.share_product = share_product; }
 
+    public String getWeight() {
+        return weight;
+    }
+
+    public void setWeight(String weight) {
+        this.weight = weight;
+    }
+
+
+    public List<ShippingDetails> getShippingsDetails() {
+        return shippingsDetails;
+    }
+
+    public List<SellerPayments> getPaymentsDetails() {
+        return paymentsDetails;
+    }
+
+    public void setPaymentsDetails(List<SellerPayments> paymentsDetails) {
+        this.paymentsDetails = paymentsDetails;
+    }
+
+    public void setShippingsDetails(List<ShippingDetails> shippingsDetails) {
+        this.shippingsDetails = shippingsDetails;
+
+
+
+
+
+    }
 }

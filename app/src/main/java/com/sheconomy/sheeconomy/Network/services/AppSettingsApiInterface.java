@@ -9,3 +9,5 @@ public interface AppSettingsApiInterface {
     @GET("settings")
     Call<AppSettingsResponse> getAppSettings();
 }
+
+

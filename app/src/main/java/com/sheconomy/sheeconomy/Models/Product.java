@@ -60,6 +60,10 @@ public class Product implements Serializable {
     @Expose
     private Integer currentStock;
 
+    @SerializedName("weight")
+    @Expose
+    private String weight;
+
     public String getName() {
         return name;
     }
@@ -195,4 +199,12 @@ public class Product implements Serializable {
     public void setCurrentStock(Integer currentStock) {
         this.currentStock = currentStock;
     }
+    public String getWeight() {
+        return weight;
+    }
+
+    public void setWeight(String weight) {
+        this.weight = weight;
+    }
+
 }

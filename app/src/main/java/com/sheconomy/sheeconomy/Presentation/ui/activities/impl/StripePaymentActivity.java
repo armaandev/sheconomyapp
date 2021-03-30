@@ -61,6 +61,7 @@ public class StripePaymentActivity extends BaseActivity implements StripePayment
 
         PaymentConfiguration.init(getApplicationContext(), AppConfig.STRIPE_KEY);
 
+
         startCheckout();
     }
 

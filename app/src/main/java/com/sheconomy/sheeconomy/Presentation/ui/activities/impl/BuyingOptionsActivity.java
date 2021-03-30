@@ -206,8 +206,6 @@ public class BuyingOptionsActivity extends BaseActivity implements BuyingOptionV
                 maps.put(color, "color");
                 dynamicRadiogroup.addView(radioButton);
             }
-
-
             HorizontalScrollView horizontalScrollView = new HorizontalScrollView(this);
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
             horizontalScrollView.setLayoutParams(layoutParams);
@@ -247,18 +245,14 @@ public class BuyingOptionsActivity extends BaseActivity implements BuyingOptionV
     private void processAddToCart(){
         AuthResponse authResponse = new UserPrefs(getApplicationContext()).getAuthPreferenceObjectJson("auth_response");
         if(authResponse != null && authResponse.getUser() != null){
-             if (variantResponse != null && variantResponse.getInStock() && variantResponse.getWeight()!=null )
+             if (variantResponse != null && variantResponse.getInStock() && variantResponse.getWeight()!= null  )
                 {
 //                Log.d("Arman", variantResponse.getVariant());
-//                Log.d("Arman", "hi this is me");
+//                    Log.d("Arman", variantResponse.getWeight().toString());
                 progressDialog.setMessage("Adding item to your shopping cart. Please wait.");
                 progressDialog.show();
                 buyingOptionPresenter.addToCart(authResponse.getAccessToken(), authResponse.getUser().getId(), variantResponse.getProductId(), variantResponse.getVariant());
             }
-//             else if(variantResponse.getWeight()==null){
-//                CustomToast.showToast(BuyingOptionsActivity.this, "Either supplier isn't accepting the payment, Weight of " +
-//                        "Product is not mentioned yet OR has'nt updated the shipping details for this product yet!.", R.color.colorPrimaryDark);
-//            }
 
             else  {
                 CustomToast.showToast(BuyingOptionsActivity.this, "The variant of this product isn't available now or " +

@@ -76,6 +76,19 @@
                 android:text="(0)"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textSize="12sp"/>
+            <TextView
+                android:id="@+id/product_stock_msg"
+                style="@style/Widget.AppCompat.TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/product_rating"
+                android:layout_toRightOf="@id/product_rating_count"
+                android:layout_marginLeft="50dp"
+                android:padding="2dp"
+                android:textColor="@color/colorPrimary"
+                android:text="stkMesg"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textSize="12sp"/>
 
 
             <TextView
@@ -180,6 +193,34 @@
                 android:layout_below="@id/shop_info"
                 android:orientation="vertical"
                 android:divider="@android:color/black">
+
+                <RelativeLayout
+
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:backgroundTint="#F8E9E9"
+                    android:visibility="gone"
+                    android:id="@+id/weightMsg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:background="@android:color/white"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="@dimen/activity_horizontal_margin"
+                    android:paddingRight="10dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:paddingBottom="@dimen/activity_horizontal_margin">
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Either supplier isn't accepting the payment,
+                        Weight of Product is not mentioned yet OR has'nt updated the shipping details for this product yet!."
+                        android:textSize="18sp"
+                        android:textColor="#E33B74"
+                        android:textStyle="bold" />
+                </RelativeLayout>
 
                 <RelativeLayout
                     android:foreground="?android:attr/selectableItemBackground"

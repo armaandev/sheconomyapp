@@ -1,5 +1,7 @@
 package com.sheconomy.sheeconomy.domain.interactors.impl;
 
+import android.util.Log;
+
 import com.sheconomy.sheeconomy.Network.ApiClient;
 import com.sheconomy.sheeconomy.Network.response.ProductDetialsResponse;
 import com.sheconomy.sheeconomy.Network.services.ProductDetailsApiInterface;
@@ -32,10 +34,10 @@ public class ProductDetailsInteractorImpl extends AbstractInteractor {
             @Override
             public void onResponse(Call<ProductDetialsResponse> call, Response<ProductDetialsResponse> response) {
                 try {
-                    //Log.d("Mehedi", response.toString());
+//                    Log.d("Mehedi", response.toString());
                     mCallback.onProductDetailsDownloaded(response.body().getData().get(0));
                 } catch (Exception e) {
-                    //Log.d("Mehedi", e.getMessage());
+//                    Log.d("Mehedi", e.getMessage());
                 }
             }
 

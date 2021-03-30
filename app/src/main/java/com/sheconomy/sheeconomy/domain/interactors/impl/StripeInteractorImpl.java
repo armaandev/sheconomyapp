@@ -38,7 +38,7 @@ public class StripeInteractorImpl extends AbstractInteractor {
             @Override
             public void onResponse(Call<StripeClientSecretResponse> call, Response<StripeClientSecretResponse> response) {
                 try {
-                    //Log.d("Test", response.body().getVariant());
+//                    Log.d("Test", response.body().getVariant());
                     mCallback.ononClientSecretReceived(response.body());
                 } catch (Exception e) {
                     Log.e("Exception", e.getMessage());

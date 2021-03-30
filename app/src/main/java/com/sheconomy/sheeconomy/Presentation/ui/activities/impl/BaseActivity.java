@@ -20,7 +20,7 @@ public class BaseActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setCustomView(R.layout.custom_action_bar_layout);
-        getSupportActionBar().setElevation(0);
+        getSupportActionBar().setElevation(2);
 
         View view =getSupportActionBar().getCustomView();
 
@@ -35,4 +35,6 @@ public class BaseActivity extends AppCompatActivity {
     public void setTitle(String s){
         title.setText(s);
     }
+
+
 }

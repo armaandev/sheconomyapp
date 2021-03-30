@@ -8,7 +8,19 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.TYPE_SYSTEM_ALERT" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+
+    //required for Juspay to read the OTP from the SMS sent to the device
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
 
     <dist:module dist:instant="true" />
 
@@ -22,9 +34,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Presentation.ui.activities.impl.SellerPaymentActivity"></activity>
-        <activity android:name=".Presentation.ui.activities.impl.SellerShippingActivity" />
-        <activity android:name=".Presentation.ui.activities.impl.SellerRefundActivity" />
+        <activity android:name=".Presentation.ui.activities.impl.SellerPaymentsDetailsActivity"></activity>
+        <activity android:name=".Presentation.ui.activities.impl.RazorPayActivity" />
+        <activity android:name=".Presentation.ui.activities.impl.SellerPaymentPolicyActivity" />
+        <activity android:name=".Presentation.ui.activities.impl.SellerShippingPolicyActivity" />
+        <activity android:name=".Presentation.ui.activities.impl.SellerRefundPolicyActivity" />
         <activity android:name=".Presentation.ui.activities.impl.SellerPoliciesOptActivity" />
         <activity android:name=".Presentation.ui.activities.impl.ContectUsActivity" />
         <activity android:name=".Presentation.ui.activities.impl.AboutUsActivity" />

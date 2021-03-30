@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sheconomy.sheeconomy.Models.Product;
-import com.sheconomy.sheeconomy.Models.ProductDetails;
 import com.sheconomy.sheeconomy.Models.Shop;
 import com.sheconomy.sheeconomy.Presentation.presenters.ShopPresenter;
 import com.sheconomy.sheeconomy.Presentation.ui.activities.SellerShopView;
@@ -45,7 +44,6 @@ public class SellerShopActivity extends BaseActivity implements SellerShopView, 
     private Button btn_seller_products;
     //new added properties
     private RelativeLayout about_us, feedback, contact_us, seller_policy, refund_policy,shipping_policy,payment_policy;
-    private Shop shop= new Shop();
     private  TextView btn_test;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,12 +86,7 @@ public class SellerShopActivity extends BaseActivity implements SellerShopView, 
                 Toast.makeText(SellerShopActivity.this, "Blank ", Toast.LENGTH_LONG).show();
             }
         });
-//        contact_us.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(SellerShopActivity.this, "Blank ", Toast.LENGTH_LONG).show();
-//            }
-//        });
+
     }
 
     private void initviews(){
@@ -131,7 +124,25 @@ public class SellerShopActivity extends BaseActivity implements SellerShopView, 
         sliderLayout.setPresetTransformer(SliderLayout.Transformer.Default);
         sliderLayout.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
        //new line added
-//        btn_test.setText(shop.getRefund_policy());
+//      btn_test.setOnClickListener(new View.OnClickListener() {
+//          @Override
+//          public void onClick(View v) {
+//              Intent intent= new Intent(SellerShopActivity.this,SellerPaymentsDetailsActivity.class);
+//              startActivity(intent);
+//          }
+//      });
+
+        btn_test.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SellerShopActivity.this, SellerPaymentsDetailsActivity.class);
+                intent.putExtra("shop_name", shop.getUser().getEmail());
+//                intent.putExtra("shop_link", productDetails.getUser().getShopLink());
+                startActivity(intent);
+            }
+        });
+
+
         btn_seller_products.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -145,7 +156,7 @@ public class SellerShopActivity extends BaseActivity implements SellerShopView, 
         refund_policy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SellerShopActivity.this, SellerRefundActivity.class);
+                Intent intent = new Intent(SellerShopActivity.this, SellerRefundPolicyActivity.class);
                 intent.putExtra("refund_policy", shop.getRefund_policy());
                 startActivity(intent);
 
@@ -155,7 +166,7 @@ public class SellerShopActivity extends BaseActivity implements SellerShopView, 
         shipping_policy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SellerShopActivity.this, SellerShippingActivity.class);
+                Intent intent = new Intent(SellerShopActivity.this, SellerShippingPolicyActivity.class);
                 intent.putExtra("shipping_policy", shop.getShipping_policy());
                 startActivity(intent);
             }
@@ -163,7 +174,7 @@ public class SellerShopActivity extends BaseActivity implements SellerShopView, 
         payment_policy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SellerShopActivity.this, SellerPaymentActivity.class);
+                Intent intent = new Intent(SellerShopActivity.this, SellerPaymentPolicyActivity.class);
                 intent.putExtra("payment_policy", shop.getPayment_policy());
                 startActivity(intent);
             }

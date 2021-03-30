@@ -6,6 +6,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.sheconomy.sheeconomy.Models.AppSettings;
 import com.sheconomy.sheeconomy.Models.OrderDetail;
 import com.sheconomy.sheeconomy.Models.PurchaseHistory;
 import com.sheconomy.sheeconomy.Network.response.AuthResponse;

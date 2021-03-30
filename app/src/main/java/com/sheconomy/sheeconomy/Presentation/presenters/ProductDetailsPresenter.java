@@ -1,22 +1,28 @@
 package com.sheconomy.sheeconomy.Presentation.presenters;
 
+import android.util.Log;
+
+import com.google.gson.JsonArray;
 import com.sheconomy.sheeconomy.Models.Product;
 import com.sheconomy.sheeconomy.Models.ProductDetails;
 import com.sheconomy.sheeconomy.Network.response.AddToCartResponse;
 import com.sheconomy.sheeconomy.Network.response.AddToWishlistResponse;
 import com.sheconomy.sheeconomy.Network.response.CheckWishlistResponse;
 import com.sheconomy.sheeconomy.Network.response.RemoveWishlistResponse;
+import com.sheconomy.sheeconomy.Network.response.VariantResponse;
 import com.sheconomy.sheeconomy.Presentation.ui.activities.ProductDetailsView;
 import com.sheconomy.sheeconomy.domain.executor.Executor;
 import com.sheconomy.sheeconomy.domain.executor.MainThread;
 import com.sheconomy.sheeconomy.domain.interactors.AddToCartInteractor;
 import com.sheconomy.sheeconomy.domain.interactors.AddToWishlistInteractor;
+import com.sheconomy.sheeconomy.domain.interactors.BuyingOptionInteractor;
 import com.sheconomy.sheeconomy.domain.interactors.CheckWishlistInteractor;
 import com.sheconomy.sheeconomy.domain.interactors.ProductDetailsInteractor;
 import com.sheconomy.sheeconomy.domain.interactors.ProductInteractor;
 import com.sheconomy.sheeconomy.domain.interactors.RemoveWishlistInteractor;
 import com.sheconomy.sheeconomy.domain.interactors.impl.AddToCartInteractorImpl;
 import com.sheconomy.sheeconomy.domain.interactors.impl.AddToWishlistInteractorImpl;
+import com.sheconomy.sheeconomy.domain.interactors.impl.BuyingOptionInteractorImpl;
 import com.sheconomy.sheeconomy.domain.interactors.impl.CheckWishlistInteractorImpl;
 import com.sheconomy.sheeconomy.domain.interactors.impl.ProductDetailsInteractorImpl;
 import com.sheconomy.sheeconomy.domain.interactors.impl.ProductInteractorImpl;
@@ -65,8 +71,10 @@ public class ProductDetailsPresenter extends AbstractPresenter implements Produc
 
     @Override
     public void onProductDetailsDownloaded(ProductDetails productDetails) {
+//        Log.d("product Details",productDetails.toString());
         if (productDetailsView != null){
             productDetailsView.setProductDetails(productDetails);
+
         }
     }
 

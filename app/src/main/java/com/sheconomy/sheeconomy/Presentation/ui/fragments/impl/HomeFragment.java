@@ -89,6 +89,7 @@ public class HomeFragment extends Fragment implements HomeView, CategoryClickLis
     private TextView flash_deals_text;
     private CountdownView mCvCountdownView;
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

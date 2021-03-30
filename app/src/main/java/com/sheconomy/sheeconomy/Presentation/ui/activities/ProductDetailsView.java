@@ -6,6 +6,7 @@ import com.sheconomy.sheeconomy.Network.response.AddToCartResponse;
 import com.sheconomy.sheeconomy.Network.response.AddToWishlistResponse;
 import com.sheconomy.sheeconomy.Network.response.CheckWishlistResponse;
 import com.sheconomy.sheeconomy.Network.response.RemoveWishlistResponse;
+import com.sheconomy.sheeconomy.Network.response.VariantResponse;
 
 import java.util.List;
 

@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sheconomy.sheeconomy.Models.CartModel;
+import com.sheconomy.sheeconomy.Models.SellerPayments;
 import com.sheconomy.sheeconomy.Network.response.AuthResponse;
 import com.sheconomy.sheeconomy.Network.response.MessageResponse;
 import com.sheconomy.sheeconomy.Network.response.RemoveCartResponse;
@@ -53,6 +54,8 @@ public class CartFragment extends Fragment implements CartView, CartItemListener
     private double tax = 0;
     private int qty = 0;
     private TextView cart_empty_text;
+    private int seller_id,id;
+    private String razorpay_status="",razorpay_key="",razorpay_secret="";
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_cart, null);
@@ -83,13 +86,17 @@ public class CartFragment extends Fragment implements CartView, CartItemListener
                 intent.putExtra("total", total);
                 intent.putExtra("shipping", shipping);
                 intent.putExtra("tax", tax);
+                intent.putExtra("seller_id",seller_id);
+//
+//                intent.putExtra("razorpay_status",razorpay_status);
+//                intent.putExtra("razorpay_key",razorpay_key);
+//                intent.putExtra("razorpay_secret",razorpay_secret);
+//                intent.putExtra("id",id);
                 startActivity(intent);
             }
         });
-
         return v;
     }
-
     private void updateCartBadge(List<CartModel> cartItems){
         linearLayout.setVisibility(View.VISIBLE);
         total = 0;
@@ -100,8 +107,18 @@ public class CartFragment extends Fragment implements CartView, CartItemListener
             shipping = cartModel.getShippingCost()*cartModel.getQuantity();
             tax = cartModel.getTax()+cartModel.getQuantity();
             qty += cartModel.getQuantity();
-        }
+            //new line added for j
+            seller_id =cartModel.getSeller_id();
 
+//            for(SellerPayments sellerPayments : cartModel.getPaymentsDetails()){
+//                razorpay_status = sellerPayments.getRazorpayStatus();
+//                razorpay_key = sellerPayments.getRazorpayKey();
+//                razorpay_secret = sellerPayments.getRazorpaySecret();
+
+
+//            }
+
+        }
         total_amount.setText(AppConfig.convertPrice(getContext(), total));
 
         BottomNavigationMenuView bottomNavigationMenuView =
